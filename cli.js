@@ -3,8 +3,7 @@ import moment from "moment-timezone"
 
 const [,, ...args] = process.argv
 
-const mini = (process.argv.slice(2))
-const timezone = moment.tz.guess()
+const timezone = args.z || moment.tz.guess()
 
 const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE" + "\n" +
 "-h            Show this help message and exit." + "\n" + 
@@ -14,13 +13,20 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 "-d 0-6        Day to retrieve weather: 0 is today; defaults to 1." + "\n" +
 "-j            Echo pretty JSON from open-meteo API and exit." 
 
-if (mini == '-h') {
-    console.log(help_message)
-} else if (mini == '-z') {
-    console.log(timezone);
-}
 
 // Make a request
-//const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m');
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m');
+// Get the data from the request
+const data = await response.json();
 
-console.log(`These are the args: ${args}`)
+    // COMMAND LINE OPTIONS
+if (args.includes('-h')) {
+    console.log(help_message);
+}
+if (args.includes('-z')) {
+    console.log(timezone);
+}
+if (args.includes('-j')) {
+    console.log(data)
+}
+
