@@ -11,7 +11,7 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 "-j            Echo pretty JSON from open-meteo API and exit." 
 
 //const [,, ...args] = process.argv
-const args = process.argv.slice(2)
+const args = minimist(process.argv.slice(2));
 
 const days = args.d
 console.log(days)
@@ -25,9 +25,6 @@ const timezone = args.z || moment.tz.guess()
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m');
 // Get the data from the request
 const data = await response.json();
-
-    // -n
-
 
     /* COMMAND LINE OPTIONS
 if (args.includes('-h')) {
@@ -47,6 +44,6 @@ if (days == 0) {
     console.log("in " + days + " days.")
   } else {
     console.log("tomorrow.")
-  }
+  } 
 
 //console.log(`Latitude: ${latitude_value} \nLongitude: ${east_west} \nTimezone: ${timezone_values}`)
