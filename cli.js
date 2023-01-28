@@ -1,6 +1,8 @@
 #!/usr/bin/env node
+import moment from "moment-timezone"
 
 const mini = (process.argv.slice(2))
+const timezone = moment.tz.guess()
 
 const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE" + "\n" +
 "-h            Show this help message and exit." + "\n" + 
@@ -12,5 +14,7 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 
 if (mini == '-h') {
     console.log(help_message)
+} else if (mini == 'z') {
+    console.log(timezone);
 }
 //console.log(help_message)
