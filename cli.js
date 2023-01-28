@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import moment from "moment-timezone"
 
+const [,, ...args] = process.argv
+
 const mini = (process.argv.slice(2))
 const timezone = moment.tz.guess()
 
@@ -14,7 +16,11 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 
 if (mini == '-h') {
     console.log(help_message)
-} else if (mini == 'z') {
+} else if (mini == '-z') {
     console.log(timezone);
 }
-//console.log(help_message)
+
+// Make a request
+//const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m');
+
+console.log(`These are the args: ${args}`)
