@@ -12,8 +12,8 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 
 //const [,, ...args] = process.argv
 const args = minimist(process.argv.slice(2));
-let latitude = 0;
-let longitude = 0;
+var latitude;
+var longitude;
 
 if (args.n > 0) {
   latitude= args.n;
