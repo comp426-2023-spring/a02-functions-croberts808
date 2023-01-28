@@ -12,21 +12,20 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 
 //const [,, ...args] = process.argv
 const args = minimist(process.argv.slice(2));
-const latitude = 0;
-const longitude = 0;
+let latitude = 0;
+let longitude = 0;
 
 if (args.n > 0) {
-  const latitude= args.n;
-  console.log(latitude);
+  latitude= args.n;
 }
 if (args.s) {
-  const latitude = (-1) * args.s;
+  latitude = (-1) * args.s;
 }
 if (args.e > 0) {
-  const longitude = args.e;
+  longitude = args.e;
 }
 if (args.w) {
-  const longitude = (-1) * args.w;
+  longitude = (-1) * args.w;
 }
 
 const timezone = args.z || moment.tz.guess();
@@ -38,7 +37,6 @@ if (args.h) {
 }
 
 // Make a request
-console.log(latitude)
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude+ '&daily=precipitation_hours&timezone=' + timezone);
 // Get the data from the request
 const data = await response.json();
@@ -48,13 +46,19 @@ if (args.j) {
   process.exit(0);
 }
 
+let galosh = ""
+
+if (data.daily.precipitation_hours[days] > 0) {
+  galosh = "You might need your galoshes "
+} else {
+  galosh = "You will not need your galoshes "
+}
 
 if (days == 0) {
-    console.log("today.")
+    console.log(galosh + "today.")
   } else if (days > 1) {
-    console.log("in " + days + " days.")
+    console.log(galosh + "in " + days + " days.")
   } else {
-    console.log("tomorrow.")
+    console.log(galosh + "tomorrow.")
   } 
 
-  console.log(args)
