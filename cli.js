@@ -13,30 +13,22 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 //const [,, ...args] = process.argv
 const args = minimist(process.argv.slice(2));
 
+const latitude = args.n || args.s;
+const longitude = args.e || args.w;
+const timezone = args.z || moment.tz.guess();
 const days = args.d
-console.log(days)
-const timezone = args.z || moment.tz.guess()
 
-//const latitude = args.n //|| args.s
-//const longitude = args.w || args.e
-    // Help Message
+if (args.h) {
+  console.log(help_message);
+  process.exit(0);
+}
 
 // Make a request
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m');
+const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m`);
 // Get the data from the request
 const data = await response.json();
 
-    /* COMMAND LINE OPTIONS
-if (args.includes('-h')) {
-    console.log(help_message);
-}
-if (args.includes('-z')) {
-    console.log(timezone);
-}
-if (args.includes('-j')) {
-    console.log(data)
-} */
-
+console.log(data);
 
 if (days == 0) {
     console.log("today.")
@@ -45,5 +37,3 @@ if (days == 0) {
   } else {
     console.log("tomorrow.")
   } 
-
-//console.log(`Latitude: ${latitude_value} \nLongitude: ${east_west} \nTimezone: ${timezone_values}`)
