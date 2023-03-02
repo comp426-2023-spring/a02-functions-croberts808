@@ -51,6 +51,10 @@ if (args.j) {
   process.exit(0);
 }
 
+if (longitude > 90 || latitude > 90) {
+  process.exit(1)
+}
+
 let galosh = ""
 
 if (data.daily.precipitation_hours != null) {
