@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import moment from "moment-timezone"
 import minimist from "minimist"
+import fetch from "node-fetch";
+
 
 const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE" + "\n" +
 "-h            Show this help message and exit." + "\n" + 
