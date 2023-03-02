@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import moment from "moment-timezone"
 import minimist from "minimist"
-import fetch from "node-fetch";
+import fetch from "node-fetch"
 
 
 const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE" + "\n" +
@@ -14,8 +14,8 @@ const help_message = "Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUD
 
 //const [,, ...args] = process.argv
 const args = minimist(process.argv.slice(2));
-let latitude = 99999;
-let longitude = 99999;
+var latitude;
+var longitude;
 
 if (args.n > 0) {
   latitude= args.n;
@@ -29,6 +29,7 @@ if (args.e > 0) {
 if (args.w) {
   longitude = (-1) * args.w;
 }
+
 
 const timezone = args.z || moment.tz.guess();
 const days = args.d
